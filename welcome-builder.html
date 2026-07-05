@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Guest Welcome Link | Casa Rei Azul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <style>:root{--blue:#1e71a5;--ink:#111;--line:#e8e8e8;--soft:#f7f7f5}body{margin:0;font-family:Inter,system-ui,sans-serif;background:#fff;color:var(--ink)}main{max-width:760px;margin:0 auto;padding:70px 24px}h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(42px,8vw,82px);font-weight:500;line-height:1;margin:0 0 20px}p{color:#555;font-size:18px;line-height:1.55}.form{display:grid;gap:16px;margin-top:34px}.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}label{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em}input{width:100%;padding:15px;border:1px solid var(--line);font:inherit;margin-top:8px}button,a.btn{display:inline-block;background:var(--blue);color:#fff;border:0;padding:15px 20px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer}.result{display:none;margin-top:28px;padding:22px;background:var(--soft);border:1px solid var(--line);word-break:break-all}.result.show{display:block}@media(max-width:700px){.row{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<main>
+  <h1>Create a guest welcome link.</h1>
+  <p>Fill this in before each stay. It creates a personalised link you can send to guests. This is a simple static version — it does not store anything online.</p>
+  <div class="form">
+    <div><label>Guest names<input id="names" value="James & Sarah"></label></div>
+    <div class="row"><label>Check-in<input id="checkin" type="date"></label><label>Check-out<input id="checkout" type="date"></label></div>
+    <div class="row"><label>Guests<input id="guests" type="number" value="2" min="1"></label><label>Lockbox PIN<input id="pin" value="4827"></label></div>
+    <button id="generate">Generate link</button>
+  </div>
+  <div id="result" class="result">
+    <p><strong>Your guest link:</strong></p>
+    <p><a id="link" href="#"></a></p>
+    <a id="open" class="btn" href="#" target="_blank" rel="noopener">Open preview</a>
+  </div>
+</main>
+<script>
+  document.getElementById('generate').addEventListener('click',()=>{
+    const q = new URLSearchParams({
+      names:document.getElementById('names').value,
+      checkin:document.getElementById('checkin').value,
+      checkout:document.getElementById('checkout').value,
+      guests:document.getElementById('guests').value,
+      pin:document.getElementById('pin').value
+    });
+    const url = new URL('welcome.html', location.href); url.search = q.toString();
+    document.getElementById('link').href = url.href; document.getElementById('link').textContent = url.href;
+    document.getElementById('open').href = url.href; document.getElementById('result').classList.add('show');
+  });
+</script>
+</body>
+</html>

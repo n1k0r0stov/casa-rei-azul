@@ -6,3 +6,35 @@
 
 /* V7 fixes: language buttons, mobile navigation and sub-page header contrast */
 .lang.active{background:var(--blue);border-color:var(--blue);color:#fff}.nav.page-nav{background:rgba(9,35,60,.96);backdrop-filter:blur(14px);color:white;box-shadow:0 1px 20px rgba(0,0,0,.08)}.nav.page-nav.scrolled{background:rgba(9,35,60,.96);color:white}.menu-toggle{display:none;border:1px solid currentColor;background:transparent;color:inherit;padding:8px 10px;text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:800;cursor:pointer}.menu-toggle span{display:inline-block;width:18px;height:2px;background:currentColor;box-shadow:0 6px 0 currentColor,0 -6px 0 currentColor;vertical-align:middle;margin-left:8px}@media(max-width:900px){.nav{position:fixed}.menu-toggle{display:block}.links{display:none;position:absolute;top:64px;left:18px;right:18px;background:rgba(9,35,60,.98);color:white;padding:18px;box-shadow:0 18px 45px rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.12)}.nav.open .links{display:flex;flex-direction:column;align-items:flex-start;gap:16px}.nav.open .links a,.nav.open .links a:not(.booklink){display:block}.nav.open .lang{margin-right:8px}.nav.open .links .lang{display:inline-block}.nav.open .links{font-size:12px}.nav.open .links .booklink{border:1px solid rgba(255,255,255,.45);padding:9px 13px}.nav .links a:not(.booklink){display:none}}
+.scroll-indicator {
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+    opacity: 0.85;
+    font-family: Arial, sans-serif;
+}
+
+.scroll-indicator span {
+    display: block;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.arrow {
+    font-size: 32px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(10px);
+    }
+    60% {
+        transform: translateY(5px);
+    }
+}

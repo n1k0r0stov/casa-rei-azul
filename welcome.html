@@ -153,6 +153,20 @@
     document.querySelectorAll('[data-wifi-network]').forEach(el => el.textContent = wifiNetwork);
     document.querySelectorAll('[data-wifi-password]').forEach(el => el.textContent = wifiPassword);
 
+if (checkin) {
+  document.querySelectorAll('[data-checkin]').forEach(el => {
+    el.textContent = formatDate(checkin);
+  });
+}
+
+if (checkout) {
+  document.querySelectorAll('[data-checkout]').forEach(el => {
+    el.textContent = formatDate(checkout);
+  });
+}
+
+const observer = new IntersectionObserver((entries)=>{
+
     const observer = new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }

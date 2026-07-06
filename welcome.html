@@ -38,9 +38,20 @@
       <div class="eyebrow">Everything at a glance</div>
       <h2>Your stay.</h2>
       <div class="glance">
-        <div class="glance-item"><span>Check-in (After 3pm)</span><span data-checkin></span></strong></div>
-        <div class="glance-item"><span>Check-out (Before 11am)</span><span data-checkout></span></strong></div>
-        <div class="glance-item"><span>Guests</span><strong><span data-guests>2</span> guests</strong></div>
+        <div class="glance-item">
+  <span>Check-in (After 3pm)</span>
+  <strong data-checkin>—</strong>
+</div>
+
+<div class="glance-item">
+  <span>Check-out (Before 11am)</span>
+  <strong data-checkout>—</strong>
+</div>
+
+<div class="glance-item">
+  <span>Guests</span>
+  <strong data-guests>2</strong>
+</div>
         <div class="glance-item"><span>Lockbox PIN</span><strong data-pin>4827</strong></div>
         <div class="glance-item"><span>WiFi Network</span><strong data-wifi-network>CasaReiAzul</strong></div>
         <div class="glance-item"><span>WiFi Password</span><strong data-wifi-password>Olhao206!</strong></div>
@@ -166,13 +177,11 @@ if (checkout) {
 }
 
 const observer = new IntersectionObserver((entries)=>{
-
-    const observer = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-      });
-    },{threshold:.12,rootMargin:'0px 0px -10% 0px'});
-    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+  });
+},{threshold:.12,rootMargin:'0px 0px -10% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   </script>
 </body>
 </html>

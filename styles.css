@@ -38,3 +38,36 @@
         transform: translateY(5px);
     }
 }
+
+.friendly-notes {
+  max-width: 820px;
+  margin-top: 36px;
+}
+
+.note {
+  border-top: 1px solid var(--line);
+  padding: 34px 0;
+}
+
+.note h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 14px;
+}
+
+.note p {
+  font-size: 20px;
+  color: #303030;
+  margin: 0;
+  max-width: 720px;
+}
+
+.note p + p {
+  margin-top: 18px;
+}
+
+.final-note {
+  border-bottom: 1px solid var(--line);
+}

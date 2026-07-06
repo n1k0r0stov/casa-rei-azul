@@ -133,8 +133,20 @@
     const names = params.get('names') || 'James & Sarah';
     const guests = params.get('guests') || '2';
     const pin = params.get('pin') || '4827';
+    const checkin = params.get('checkin');
+    const checkout = params.get('checkout');
     const wifiNetwork = params.get('wifi') || params.get('wifiNetwork') || 'CasaReiAzul';
     const wifiPassword = params.get('wifiPassword') || params.get('password') || 'WelcomeToAzul';
+    function formatDate(value) {
+  if (!value) return '';
+  const date = new Date(value + 'T12:00:00');
+  return date.toLocaleDateString('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+}
     document.querySelectorAll('[data-guest-names]').forEach(el => el.textContent = names);
     document.querySelectorAll('[data-guests]').forEach(el => el.textContent = guests);
     document.querySelectorAll('[data-pin]').forEach(el => el.textContent = pin);

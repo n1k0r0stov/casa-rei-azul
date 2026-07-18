@@ -17,8 +17,7 @@
       <a href="index.html" data-i18n="stay">Stay</a>
       <a href="olhao.html" data-i18n="things">Things to do</a>
       <a href="book.html" class="booklink" data-i18n="book">Book</a>
-      <button class="lang active" data-lang="en">EN</button>
-      <button class="lang" data-lang="pt">PT</button>
+      
     </div>
   </nav>
 
@@ -36,31 +35,7 @@
   </header>
 
   <main>
-    <section class="direct-benefits section">
-      <div class="booking-heading">
-        <div class="eyebrow">Why book direct?</div>
-        <h2>A more personal way to stay.</h2>
-      </div>
-      <div class="benefit-grid">
-        <article class="benefit-item">
-          <span class="benefit-number">01</span>
-          <h3>Our best rate</h3>
-          <p>Book with us directly and avoid third-party booking fees.</p>
-        </article>
-        <article class="benefit-item">
-          <span class="benefit-number">02</span>
-          <h3>Personal service</h3>
-          <p>From your first enquiry, you will be speaking directly with us.</p>
-        </article>
-        <article class="benefit-item">
-          <span class="benefit-number">03</span>
-          <h3>Local favourites</h3>
-          <p>We will share the cafés, restaurants and little places we love in Olhão.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="booking-section section" id="booking-form">
+<section class="booking-section section" id="booking-form">
       <div class="booking-form-panel">
         <div class="booking-form-intro">
           <div class="eyebrow">Request a stay</div>
@@ -125,6 +100,11 @@
 
           <fieldset>
             <legend><span>3</span>Your plans</legend>
+            <div class="booking-fields">
+              <label>Offer code <span class="optional-label">Optional</span>
+                <input type="text" name="offerCode" id="offerCode" autocomplete="off" placeholder="Enter your code">
+              </label>
+            </div>
             <label>Anything you would like us to know?
               <textarea name="message" id="message" rows="6" placeholder="Celebrating something special, travelling with children or arriving late? Tell us anything that will help us prepare for your stay."></textarea>
             </label>
@@ -140,7 +120,7 @@
           <div class="form-message" id="form-message" role="alert" aria-live="polite"></div>
 
           <button class="btn fill booking-submit" type="submit">
-            <span>Request booking</span>
+            <span>Request availability</span>
             <span aria-hidden="true">→</span>
           </button>
           <p class="response-note">We personally review every request and aim to reply as soon as possible.</p>
@@ -278,6 +258,7 @@
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
         const notes = document.getElementById('message').value.trim();
+        const offerCode = document.getElementById('offerCode').value.trim();
         const childCount = Number(children.value);
         const guestText = `${adults.value} adult${adults.value === '1' ? '' : 's'}${childCount ? `, ${childCount} child${childCount === 1 ? '' : 'ren'}` : ''}`;
         const nights = Math.round((new Date(checkout.value + 'T12:00:00') - new Date(checkin.value + 'T12:00:00')) / 86400000);
@@ -304,6 +285,7 @@
             adults: adults.value,
             children: children.value,
             guests: guestText,
+            offerCode,
             message: notes
           })
         })

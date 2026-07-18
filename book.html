@@ -282,30 +282,53 @@
         const guestText = `${adults.value} adult${adults.value === '1' ? '' : 's'}${childCount ? `, ${childCount} child${childCount === 1 ? '' : 'ren'}` : ''}`;
         const nights = Math.round((new Date(checkout.value + 'T12:00:00') - new Date(checkin.value + 'T12:00:00')) / 86400000);
 
-        const subject = `Booking enquiry: ${formatDate(checkin.value)} to ${formatDate(checkout.value)}`;
-        const body = [
-          'Hello Casa Rei Azul,',
-          '',
-          'I would like to enquire about a stay:',
-          '',
-          `Check-in: ${formatDate(checkin.value)}`,
-          `Check-out: ${formatDate(checkout.value)}`,
-          `Length: ${nights} night${nights === 1 ? '' : 's'}`,
-          `Guests: ${guestText}`,
-          '',
-          `Name: ${firstName} ${lastName}`,
-          `Email: ${email}`,
-          `Phone / WhatsApp: ${phone || 'Not provided'}`,
-          '',
-          'Additional information:',
-          notes || 'None',
-          '',
-          'Thank you.'
-        ].join('\n');
+        const submitButton = form.querySelector('.booking-submit');
+        const originalButtonHtml = submitButton.innerHTML;
 
-        message.textContent = 'Your email app is opening with the enquiry ready to send.';
-        message.className = 'form-message success visible';
-        window.location.href = `mailto:stay@casareiazul.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<span>Sending…</span>';
+        message.textContent = 'Sending your enquiry…';
+        message.className = 'form-message visible';
+
+        fetch('/api/enquiry', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: `${firstName} ${lastName}`.trim(),
+            email,
+            phone,
+            checkIn: checkin.value,
+            checkOut: checkout.value,
+            adults: adults.value,
+            children: children.value,
+            guests: guestText,
+            message: notes
+          })
+        })
+          .then(async response => {
+            const result = await response.json().catch(() => ({}));
+
+            if (!response.ok || !result.success) {
+              throw new Error(result.message || 'Your enquiry could not be sent. Please try again.');
+            }
+
+            message.textContent = result.message || 'Thank you. Your enquiry has been sent.';
+            message.className = 'form-message success visible';
+            form.reset();
+            adults.value = '2';
+            children.value = '0';
+            updateSummary();
+          })
+          .catch(error => {
+            message.textContent = error.message || 'Your enquiry could not be sent. Please email stay@casareiazul.com.';
+            message.className = 'form-message error visible';
+          })
+          .finally(() => {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonHtml;
+          });
       });
     })();
   </script>
